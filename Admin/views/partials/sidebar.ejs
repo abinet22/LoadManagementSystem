@@ -1,0 +1,100 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <a href="#" class="nav-link">
+        <div class="nav-profile-image">
+          <img src="../../assets/images/default.jpeg" alt="profile">
+          <span class="login-status online"></span>
+          <!--change to offline or busy as needed-->
+        </div>
+        <div class="nav-profile-text d-flex flex-column">
+          <span class="font-weight-bold mb-2" style="text-transform: uppercase;"><%= user.username %></span>
+          <span class="text-secondary text-small" style="text-transform: uppercase;"><%= user.userroll %></span>
+        </div>
+        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/dashboard">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-home menu-icon" ></i>
+      </a>
+    </li>
+  
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages0" aria-expanded="false" aria-controls="general-pages0">
+        <span class="menu-title">Manage Application</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi  mdi-ticket-confirmation menu-icon"></i>
+      </a>
+      <div class="collapse" id="general-pages0">
+        <ul class="nav flex-column sub-menu">
+        <li class="nav-item"> <a class="nav-link" href="/application/applicantlist">New  </a></li>
+        <li class="nav-item"> <a class="nav-link" href="/application/activeapplication">Active  </a></li>
+        <li class="nav-item"> <a class="nav-link" href="/application/selectedapplicantlist">Selected  </a></li>
+        <li class="nav-item"> <a class="nav-link" href="/application/rejectedapplicantlist">Rejected  </a></li>
+
+    
+      </ul>
+      </div>
+    </li>
+   
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages5" aria-expanded="false" aria-controls="general-pages5">
+        <span class="menu-title">Manage System Users</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi  mdi-ticket-confirmation menu-icon"></i>
+      </a>
+      <div class="collapse" id="general-pages5">
+        <ul class="nav flex-column sub-menu">
+        <li class="nav-item"> <a class="nav-link" href="/user/userlist">All User List  </a></li>
+       
+      </ul>
+      </div>
+    </li>
+   
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#general" aria-expanded="false" aria-controls="general">
+          <span class="menu-title">Manage Notifications </span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-bell-ring menu-icon"></i>
+        </a>
+        <div class="collapse" id="general">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/note/notifications">Notifications</a></li>
+          
+           </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+          <span class="menu-title">Report And Stastics</span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-database menu-icon"></i>
+        </a>
+        <div class="collapse" id="general-pages">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/data/report">Report  </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/data/statistics">Statistics  </a></li>
+          </ul>
+        </div>
+      </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages6" aria-expanded="false" aria-controls="general-pages6">
+        <span class="menu-title">Settings</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi  mdi-settings menu-icon"></i>
+      </a>
+      <div class="collapse" id="general-pages6">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/user/addsystemuser"> Create New System User </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/setting/addnewsector"> Create New Loan Sector</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/setting/addnewsubsector"> Create New Loan Sub Sector </a></li>
+
+        </ul>
+      </div>
+    </li>
+    
+   
+  </ul>
+</nav>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+  </head>
+  <style>
+     
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+    
+    /* Modal Content (image) */
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 100%;
+      max-width: 700px;
+    }
+    
+    /* Caption of Modal Image */
+    #caption {
+      margin: auto;
+      display: block;
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+    
+    /* Add Animation */
+    .modal-content, #caption {  
+      -webkit-animation-name: zoom;
+      -webkit-animation-duration: 0.6s;
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+    
+    @-webkit-keyframes zoom {
+      from {-webkit-transform:scale(0)} 
+      to {-webkit-transform:scale(1)}
+    }
+    
+    @keyframes zoom {
+      from {transform:scale(0)} 
+      to {transform:scale(1)}
+    }
+    
+    /* The Close Button */
+    .close {
+      position: absolute;
+      top: 100px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+      .modal-content {
+        width: 100%;
+      }
+    }
+    </style>
+  
+  <body>
+    <div class="container-scroller">
+   
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="/dashboard"><img src="../../../assets/images/logo.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="/dashboard"><img src="../../../assets/images/logo.svg" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input type="text" class="form-control bg-transparent border-0" placeholder="">
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="../../assets/images/default.jpg" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black" style="text-transform: uppercase;"><%= user.username %></p>
+                </div>
+              </a>
+            
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+          
+            <li class="nav-item nav-logout d-none d-lg-block">
+              <a class="nav-link" href="/logout">
+                <i class="mdi mdi-power"></i>
+              </a>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-block">
+              <a class="nav-link" href="#">
+                <i class="mdi mdi-format-line-spacing"></i>
+              </a>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="../../assets/images/default.jpg" alt="profile">
+                  <span class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2" style="text-transform: uppercase;"><%= user.username %></span>
+                  <span class="text-secondary text-small" style="text-transform: uppercase;"><%= user.userroll %></span>
+                </div>
+                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon" ></i>
+              </a>
+            </li>
+            <li class="nav-item sidebar-actions">
+             
+                <button class="btn btn-block btn-sm" style="background-color: #45b649;">STEP ONE</button>
+             
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#general-pages0" aria-expanded="false" aria-controls="general-pages0">
+                <span class="menu-title">Manage Application</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi  mdi-ticket-confirmation menu-icon"></i>
+              </a>
+              <div class="collapse" id="general-pages0">
+                <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/applicantlist">New  </a></li>
+          
+                <li class="nav-item"> <a class="nav-link" href="/selectedapplicantlist">Selected  </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/rejectedapplicantlist">Rejected  </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/applicantwithoutpassport">No Passport  </a></li>
+            
+              </ul>
+              </div>
+            </li>
+           
+             
+              <li class="nav-item sidebar-actions">
+              
+                  <button class="btn btn-block btn-sm" style="background-color: #45b649;">STEP TWO</button>
+                
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#general-pages2" aria-expanded="false" aria-controls="general-pages">
+                  <span class="menu-title">Manage VISA</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-medical-bag menu-icon"></i>
+                </a>
+                <div class="collapse" id="general-pages2">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/visa/managevisa">Start VISA Process </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/visa/allstartvisalist">Update Status  </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/visa/acceptedvisalist">Accepted </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/visa/declinedvisalist">Declined</a></li>
+             
+                  </ul>
+                </div>
+              </li>
+            
+              <li class="nav-item sidebar-actions">
+              
+                  <button class="btn btn-block btn-sm" style="background-color: #45b649;">STEP THREE</button>
+                
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#general-pages1" aria-expanded="false" aria-controls="general-pages">
+                  <span class="menu-title">Manage Tickets</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi  mdi-ticket-confirmation menu-icon"></i>
+                </a>
+                <div class="collapse" id="general-pages1">
+                  <ul class="nav flex-column sub-menu">
+               
+                  <li class="nav-item"> <a class="nav-link" href="/ticket/senddatatoticketoffice">Send Data For Booking </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/ticket/showticketstatus">All  </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/ticket/bookedlist">Booked </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/ticket/queuelist">Queue </a></li>
+                      </ul>
+                </div>
+              </li>
+              <li class="nav-item sidebar-actions">
+             
+               
+                  <button class="btn btn-block btn-sm" style="background-color: #45b649;">FINAL</button>
+                
+                
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#general-pages3" aria-expanded="false" aria-controls="general-pages">
+                  <span class="menu-title">Manage Travel </span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-bell-ring menu-icon"></i>
+                </a>
+                <div class="collapse" id="general-pages3">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/updatetraveledornot">Update Status</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/travelledlist">Travelled</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/nottravelledlist">Not Travelled</a></li>
+                   </ul>
+                </div>
+              </li>
+              <hr>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#general" aria-expanded="false" aria-controls="general">
+                  <span class="menu-title">Manage Compliants </span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-bell-ring menu-icon"></i>
+                </a>
+                <div class="collapse" id="general">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/searchsingleuserlog">Single Applicant History</a></li>
+                  
+                   </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+                  <span class="menu-title">Report And Stastics</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-database menu-icon"></i>
+                </a>
+                <div class="collapse" id="general-pages">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/data/report">Report  </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/data/statistics">Statistics  </a></li>
+                  </ul>
+                </div>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#general-pages5" aria-expanded="false" aria-controls="general-pages">
+                <span class="menu-title">Settings</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi  mdi-settings menu-icon"></i>
+              </a>
+              <div class="collapse" id="general-pages5">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="/createnewhajiprogram"> Create New HAJI Program </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/acceptpayment"> Create New Bank Account</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/createticketoffice"> Create New Ticket Office </a></li>
+  
+                  <li class="nav-item"> <a class="nav-link" href="/createregionaloffices"> Create Regional Offices </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/createsystemuser"> Create System User Credential</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/assigndistributequotas">Set Quotas</a></li>
+              
+                </ul>
+              </div>
+            </li>
+            
+           
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon  text-white me-2">
+                  <i class="mdi mdi-home" style="color: #45b649;"></i>
+                </span> Dashboard/New Applicant List
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <a href="printlistrejected">
+                      <span></span>Print List <i style="color: #45b649;" class="mdi mdi mdi-cloud-print
+                      icon-sm  align-middle"></i>
+              
+                    </a>
+                     </li>
+                </ul>
+              </nav>
+            </div>
+            <%- include ('./partials/messages') %>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Applicant List</h4>
+                    <p class="card-description"> All Applicants <code></code>
+                    </p>
+                    <table class="table  table-responsive" id="listtable">
+                      <thead>
+                        <tr>
+                          <th> # </th>
+                          <th> Appliant ID </th>
+                          <th> Full Name </th>
+                          <th> Applicant Personal Info </th>
+                          <th> Contact Info </th>
+                          <th> Passport Info </th>
+                          <th> Application Progress </th>
+                          <th> Other Information </th>
+                          <th> Application Date </th>
+                          <th> Action To Do </th>
+                         
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% var namephoto ;
+                        var namepass ;
+                        var nameid ; 
+                        var namephotodiv ;
+                        var namepassdiv ;
+                        var nameiddiv; 
+                        var dataids; var datapassp; var dataphotos;%>
+                        <% if(appication.length >0) { %>
+                          <% var i =0 ; %>
+                          <% application.forEach(function (row){ %>
+                           <% i ++ %>
+                            <tr >
+                              <td> <%= i %> </td>
+                              <td> <%= row.applicant_id %><br>
+
+                                <% if(row.is_with_spouse =="Yes") {%>
+                                  <i  class="mdi mdi-check"></i> <label class="btn-sm btn bg-info">Going With Spouse
+                                  <br>  Key:<%= row.spouse_id %>
+                                  </label>
+                    
+                                          
+                                   <% }else{ %>
+                                
+                                  <% } %>
+                            
+                              </td>
+                              <td style="text-transform: uppercase;"> <%= row.applicant_f_name %> &nbsp; <%= row.applicant_m_name %> &nbsp; <%= row.applicant_l_name %> </td>
+                              <td> Nationality: <%= row.nationality %> <br>
+                                Date of Birth: <%= row.date_of_birth %> <br>
+                                Place Of Birth :<%= row.place_of_birth %> <br>
+                                Age: <%= row.age %> <br>
+                                Gender: <%= row.gender %> <br>
+                                 <br> </td>
+                                <td>
+                                  Address <br> 
+                                  <i  class="mdi mdi-check"></i><%= row.region %>, &nbsp;<%= row.zone_woreda %>, &nbsp;<%= row.city_kebele_hno %> <br> 
+                                  Contact Phone Number <br> 
+                                  <i  class="mdi mdi-check"></i> <%= row.contact_phone_one %>  <br> 
+                                  Emergency Contact <br> 
+                                  <% var conname = row.emergency_phone; %>
+                              <% var passno =  row.passportno; %> 
+                              <% if (conname == "null")
+                              {
+                                conname ="No";
+                                
+                              }
+                              else{
+                                
+                                conname = row.emergen_name +"/"+row.emergency_phone;
+                              } %>
+                                  <i  class="mdi mdi-check"></i> <%= conname %>     <br> 
+                              
+                              </td>
+                              <% var pass ;
+                                  var expire;
+                                  var issue;
+                                  var number;
+                                  var dataid %>
+                              <% var passno =  row.passportno; %> 
+                              <% if (passno =="null")
+                              {
+                                  pass= "No";
+                                  expire= "";
+                                  issue= "";
+                                  number= "";
+                              }
+                              else{
+                              
+                                pass= "Yes";
+                                expire= new Date(row.passport_expiry_date).toISOString();
+                                issue= new Date(row.passport_issue_date).toISOString();
+                                number =  row.passportno; 
+                              } %>
+                              <td> <i  class="mdi mdi-check"></i>Is Applicant Has Passport: <%= pass %> <br> 
+                                <i  class="mdi mdi-check"></i>Passport No.: <%= number %> <br> 
+                                 
+                                <i  class="mdi mdi-check"></i>Date of Issued: <%= issue %> <br> 
+                                <i  class="mdi mdi-check"></i>Date Of Expiry: <%= expire %> <br> 
+                                
+                            </td>
+                              <td>
+                                <i  class="mdi mdi-check"></i>Application Status: &nbsp; <%= row.application_status %> <br> 
+                                <i  class="mdi mdi-check"></i>VISA Status: &nbsp; <%= row.visa_status %> <br> 
+                                <i  class="mdi mdi-check"></i>Payment Status: &nbsp;  <%= row.payment_status %><br> 
+                              </td>
+                              <td>
+                                <a href="/showsingleapplicantdocument/<%= row.applicant_id %>" class="btn btn-sm btn-info">Show Document</a>
+                              </td>
+                              <td> 
+                                <%var crat = new Date(row.createdAt) %> 
+                                <%= crat.toISOString() %>
+                                </td>
+                              <td> <form action="/updateapplicationreject/<%= row.applicant_id %>" method="post">
+                                <button type="submit" class="btn btn-block btn-danger btn-sm">Reject Applicant</button>
+                                </form><br>
+                                <form action="/updateapplicationselect/<%= row.applicant_id %>" method="post">
+                                  <button type="submit" class="btn-block btn btn-success btn-sm ">Select Applicant</button>
+                                  </form>
+                              
+                              </td>
+                           
+                            </tr>
+                          <% }) } else { %>
+
+                         <% } %>
+                      
+                         <script>
+                         
+                          function myFunction(divids) {
+                          var x = document.getElementById(divids);
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                          function myFunction2(divids) {
+                          var x = document.getElementById(divids);
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                          function myFunction3(divids) {
+                          var x = document.getElementById(divids);
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                          function myFunction4() {
+                          var x = document.getElementById("myDIV4");
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                      </script>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+
+        
+          </div>
+          <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+          </div>
+          <script>
+            // Get the modal passport
+            function passimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            </script>
+          <script>
+
+                             
+            function idimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            // Get the modal personal id
+           
+            </script>
+          <script>
+            // Get the modal 3x4 photo
+            function photoimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            </script>
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+             <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+             <script src=" https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script>
+               <!-- //workingbelow -->
+               <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+               <script>
+          $(document).ready(function (){
+      var table = $('#listtable').DataTable({
+        
+         'columnDefs': [{
+            'targets': 0,
+            'searchable': false,
+            'orderable': false,
+            'className': 'dt-body-center',
+           
+         }],
+         'order': [[1, 'asc']]
+      });
+   
+      // Handle click on "Select all" control
+      $('#example-select-all').on('click', function(){
+         // Get all rows with search applied
+         var rows = table.rows({ 'search': 'applied' }).nodes();
+         // Check/uncheck checkboxes for all rows in the table
+         $('input[type="checkbox"]', rows).prop('checked', this.checked);
+      });
+   
+      // Handle click on checkbox to set state of "Select all" control
+      $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+         // If checkbox is not checked
+         if(!this.checked){
+            var el = $('#example-select-all').get(0);
+            // If "Select all" control is checked and has 'indeterminate' property
+            if(el && el.checked && ('indeterminate' in el)){
+               // Set visual state of "Select all" control
+               // as 'indeterminate'
+               el.indeterminate = true;
+            }
+         }
+      });
+   
+      // Handle form submission event
+      $('#frm-example').on('submit', function(e){
+         var form = this;
+   
+         // Iterate over all checkboxes in the table
+         table.$('input[type="checkbox"]').each(function(){
+            // If checkbox doesn't exist in DOM
+            if(!$.contains(document, this)){
+               // If checkbox is checked
+               if(this.checked){
+                  // Create a hidden element
+                  $(form).append(
+                     $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', this.name)
+                        .val(this.value)
+                  );
+               }
+            }
+         });
+      });
+   
+   });
+               </script>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid d-flex justify-content-between">
+              <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © techlinkethiopia.com 2022</span>
+              <span class="float-none float-sm-end mt-1 mt-sm-0 text-end">  <a href="https://www.techlinkethiopia.com" target="_blank"></a>TechLinkTechnologies</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="../../assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../../assets/js/dashboard.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

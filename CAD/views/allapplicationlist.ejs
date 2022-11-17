@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../../../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../../../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../../../assets/images/favicon.ico" />
+  </head>
+
+  
+  <body>
+    <div class="container-scroller">
+   
+      <!-- partial:partials/_navbar.html -->
+      <%- include('./partials/top') %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <%- include('./partials/sidebar') %>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+
+            <% if(application.length >0) { %>
+              <% var i =0 ; %>
+              <% application.forEach(function (row){ %>
+                <% var appid = row.appid %>
+                <% if(cadreview.length >0) { %>
+              
+                  <% cadreview.forEach(function (row){ %>
+                    <% if(row.applicationid ===appid) {%>
+                    <div class="modal fade seminor-login-modal" data-backdrop="static" id="<%= appid %>">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                     <div class="modal-header">
+                      <h5 class="modal-title text-center">Review By: <%= user.fullname %></h5>
+                      <button type="button" class="close" data-dismiss="modal">
+                          <span><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                      </button>
+            
+                     </div>
+                          <div class="modal-body seminor-login-modal-body">
+                        
+                      <form class="seminor-login-form" action="/application/updatestatus" method="post">
+                        <div class="form-group">
+                          <label class="" for="name">Select Loan Status</label>
+                       
+                          <p><%= row.reviewstatus %></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="" for="">Reason/ Comment</label>
+                          <p><%= row.reason %></p>
+                       </div>
+                        
+                  
+                        </form>
+                  
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% }}) } else { %>
+
+                      <% } %>
+               
+                <% }) } else { %>
+
+                  <% } %>
+         
+
+
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon  text-white me-2">
+                  <i class="mdi mdi-home" style="color: #45b649;"></i>
+                </span> Dashboard/All New Application List
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <a href="printapplication">
+                      <span></span>Print List <i style="color: #45b649;" class="mdi mdi mdi-cloud-print
+                      icon-sm  align-middle"></i>
+              
+                    </a>
+                     </li>
+                </ul>
+              </nav>
+            </div>
+            <%- include ('./partials/messages') %>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">All Application List</h4>
+                    <p class="card-description"> All Applications <code></code>
+                    </p>
+                    <table class="table  table-responsive" id="listtable">
+                      <thead>
+                        <tr>
+                          <th> # </th>
+                         
+                          <th> Full Name </th>
+                          <th> Applicant Personal Info </th>
+                          <th> Contact Info </th>
+                          <th> Application Info </th>
+                          <th> Application Progress </th>
+                          <th> Other Information </th>
+                          <th> Application Date </th>
+                         
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% var namephoto ;
+                        var namepass ;
+                        var nameid ; 
+                        var namephotodiv ;
+                        var namepassdiv ;
+                        var nameiddiv; 
+                        var dataids; var datapassp; var dataphotos;%>
+                        <% if(application.length >0) { %>
+                          <% var i =0 ; %>
+                          <% application.forEach(function (row){ %>
+                           <% i ++ %>
+                            <tr >
+                              <td> <%= i %> </td>
+                          
+                              <td style="text-transform: uppercase;"> <%= row.applicant_f_name %> &nbsp; <%= row.applicant_m_name %> &nbsp; <%= row.applicant_l_name %> </td>
+                              <td> Nationality: <%= row.nationality %> <br>
+                                Date of Birth: <%= row.date_of_birth %> <br>
+                                Place Of Birth :<%= row.place_of_birth %> <br>
+                                Age: <%= row.age %> <br>
+                                Gender: <%= row.gender %> <br>
+                                 <br> </td>
+                                <td>
+                                  Address <br> 
+                                  <i  class="mdi mdi-check"></i><%= row.region %>, &nbsp;<%= row.zone_woreda %>, &nbsp;<%= row.city_kebele_hno %> <br> 
+                                  Contact Phone Number <br> 
+                                  <i  class="mdi mdi-check"></i> <%= row.contact_phone_one %>  <br> 
+                                  Emergency Contact <br> 
+                                
+                                  <i  class="mdi mdi-check"></i> <%=  %>     <br> 
+                              
+                              </td>
+                             <td>
+                               Sector:<%= row.sectorname %><br>
+                               Sub Sector:<%= row.subsectorname %>
+                              
+                               
+                             </td>
+                             
+                              <td>
+                                <i  class="mdi mdi-check"></i>Application Status: &nbsp; <%= row.application_status %> <br> 
+                              </td>
+                              <td>
+                                <% if(tag ==="Active") {%>
+                                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#<%= row.appid %>">
+                                    Show Review
+                                  </button>
+                               <%} else { %>
+                                <a href="/application/showsingleapplicantdocument/<%= row.appid %>" class="btn btn-sm btn-info">Show Document</a>
+                             
+                             <%   }%>
+                               </td>
+                              <td> 
+                                <%var crat = new Date(row.createdAt) %> 
+                                <%= crat.toISOString() %>
+                                </td>
+                             
+                           
+                            </tr>
+                          <% }) } else { %>
+
+                         <% } %>
+                      
+                         <script>
+                         
+                          function myFunction(divids) {
+                          var x = document.getElementById(divids);
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                          function myFunction2(divids) {
+                          var x = document.getElementById(divids);
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                          function myFunction3(divids) {
+                          var x = document.getElementById(divids);
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                          function myFunction4() {
+                          var x = document.getElementById("myDIV4");
+                          if (x.style.display === "none") {
+                              x.style.display = "block";
+                          } else {
+                              x.style.display = "none";
+                          }
+                          }
+                      </script>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+
+        
+          </div>
+          <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+          </div>
+          <script>
+            // Get the modal passport
+            function passimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            </script>
+          <script>
+
+                             
+            function idimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            // Get the modal personal id
+           
+            </script>
+          <script>
+            // Get the modal 3x4 photo
+            function photoimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            </script>
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+             <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+             <script src=" https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script>
+               <!-- //workingbelow -->
+               <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+               <script>
+          $(document).ready(function (){
+      var table = $('#listtable').DataTable({
+        
+         'columnDefs': [{
+            'targets': 0,
+            'searchable': false,
+            'orderable': false,
+            'className': 'dt-body-center',
+           
+         }],
+         'order': [[1, 'asc']]
+      });
+   
+      // Handle click on "Select all" control
+      $('#example-select-all').on('click', function(){
+         // Get all rows with search applied
+         var rows = table.rows({ 'search': 'applied' }).nodes();
+         // Check/uncheck checkboxes for all rows in the table
+         $('input[type="checkbox"]', rows).prop('checked', this.checked);
+      });
+   
+      // Handle click on checkbox to set state of "Select all" control
+      $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+         // If checkbox is not checked
+         if(!this.checked){
+            var el = $('#example-select-all').get(0);
+            // If "Select all" control is checked and has 'indeterminate' property
+            if(el && el.checked && ('indeterminate' in el)){
+               // Set visual state of "Select all" control
+               // as 'indeterminate'
+               el.indeterminate = true;
+            }
+         }
+      });
+   
+      // Handle form submission event
+      $('#frm-example').on('submit', function(e){
+         var form = this;
+   
+         // Iterate over all checkboxes in the table
+         table.$('input[type="checkbox"]').each(function(){
+            // If checkbox doesn't exist in DOM
+            if(!$.contains(document, this)){
+               // If checkbox is checked
+               if(this.checked){
+                  // Create a hidden element
+                  $(form).append(
+                     $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', this.name)
+                        .val(this.value)
+                  );
+               }
+            }
+         });
+      });
+   
+   });
+               </script>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <%- include('./partials/footer') %>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../../../assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="../../../../assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../../../assets/js/off-canvas.js"></script>
+    <script src="../../../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../../../assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../../../../assets/js/dashboard.js"></script>
+    <script src="../../../../assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

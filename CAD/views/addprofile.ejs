@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../../assets/images/favicon.ico" />
+    <style>
+      div.id-images > img {
+        width: 50%;
+      }
+      div.photo-images > img {
+        width: 50%;
+      }
+      div.passport-images > img {
+        width: 50%;
+      }
+      div.latter-images > img {
+        width: 50%;
+      }
+      div.print-photo-images >img {
+        max-width: 100%;
+    max-height: 100%;
+
+      }
+     
+
+      .page-headerp {
+    margin: 0 0 1rem;
+    padding-bottom: 1rem;
+    padding-top: .5rem;
+    border-bottom: 1px dotted #e2e2e2;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+    </style>
+ 
+ <style>
+ 
+
+  #regForm {
+    background-color: #ffffff;
+  
+    font-family: Raleway;
+  
+ 
+    min-width: 300px;
+  }
+  
+  h1 {
+    text-align: center;  
+  }
+  
+  input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Mark input boxes that gets an error on validation: */
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  button {
+    transition: opacity 0.3s ease;
+    color: #ffffff;
+    border: 0;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+  
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  #prevBtn {
+    background-color: #bbbbbb;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #45b649;
+  }
+  </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+   
+      <!-- partial:partials/_navbar.html -->
+      <%- include('./partials/top') %>
+    
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+       
+        <%- include('./partials/sidebar') %>
+    
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon   me-2" style="color: #45b649;">
+                  <i class="mdi mdi-home"></i>
+                </span> Dashboard/Add New Loan Application
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <a href="/user/updateprofile">
+                      <span></span>Update Profile <i class="mdi  mdi-format-list-bulleted-type icon-sm text-primary align-middle"></i>
+              
+                    </a>
+                     </li>
+                </ul>
+              </nav>
+            </div>
+        
+
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title"><i class="mdi mdi-account-multiple-plus" style="font-size:24px;color:#45b649"></i> Application Registration Form</h4>
+                    <p class="card-description"> Add New Loan Application </p>
+                    <%- include ('./partials/messages') %>
+                    <form id="regForm"  action="/user/addprofile"
+                    method="POST"
+                    enctype="multipart/form-data">
+                      <h1></h1>
+                    
+                      <!-- One "tab" for each step in the form: -->
+                      <div class="tab">Upload General Info:
+                        <p>
+                         
+                       
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="exampleInputName1">First Name</label>
+                                <input type="text" class="form-control" onchange="fnamechange(this.value);"  oninput="this.className = '';" name="firstname" id="firstname" placeholder="First Name">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="exampleInputName1">Middle Name</label>
+                                <input type="text" class="form-control" onchange="mnamechange(this.value);"  oninput="this.className = ''" name="middlename" id="middlename" placeholder="Middle Name">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="exampleInputName1">Last Name</label>
+                                <input type="text" class="form-control" onchange="lnamechange(this.value);"  oninput="this.className = ''" name="lastname" id="lastname" placeholder="LastName">
+                              </div>
+                            </div>
+                          </div>
+                      
+                        </p>
+
+                        
+                      
+                        <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputName1">Date Of Birth</label>
+                                  <input type="date" class="form-control" id="dob" name="dob" onchange="dobchange(this.value);"  placeholder="Date Of Birth" oninput="this.className = ''">
+                                </div>
+                             
+                              </div>
+                              <div class="col-md-6">
+                            
+                                <div class="form-group">
+                                  <label for="exampleInputName1">Place Of Birth</label>
+                                  <input type="text" class="form-control" name="placeofbirth" onchange="pobchange(this.value);"  id="placeofbirth" placeholder="Place Of Birth" oninput="this.className = ''">
+                                </div>
+                              </div>
+                        </div>
+                      <div class="row">
+                        <div class="col-md-6">
+
+                        <div class="form-group">
+                          <label for="exampleInputName1">Martial Status</label>
+                          <select class="form-control"  id="martial"   name="martial" placeholder="Martial" value="">
+                          <option value="0">Please Select Martial Status</option>
+                          <option >Divorced</option>
+                          <option >Single </option>
+                          <option >Married </option>
+                        
+                          
+                          </select>
+                        </div>
+                       
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleInputName1">Educational Status</label>
+                            <select class="form-control"  id="education"   name="education" placeholder="Martial" value="">
+                            <option value="0">Please Select Educational Status</option>
+                            <option >PHD</option>
+                            <option >Master </option>
+                            <option >Degree </option>
+                            <option >Diploma </option>
+                            <option >Certificate </option>
+                            <option >Other </option>
+                          
+                            
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="exampleInputName1">Nationality</label>
+                                <select class="form-control"  id="nationality" onchange="regchange(this.value);"  name="nationality" placeholder="Nationality" >
+                                <option value="0">Please Select Nationality</option>
+                                <option >Ethiopian</option>
+                                <option >USA </option>
+                                <option >UK </option>
+                                
+                                
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="exampleInputName1">Gender</label>
+                                <select class="form-control"  id="gender" onchange="regchange(this.value);"  name="gender" placeholder="Nationality" >
+                                <option value="0">Please Select Gender</option>
+                                <option >Male</option>
+                                <option >Female </option>
+                                
+                                
+                                
+                                </select>
+                              </div>
+                            </div>
+                          
+
+                          </div>
+                       </div>
+                       <div class="tab">Appliant Contact Info:
+                        
+                        <div class="row">
+                          <label for="exampleInputName1">Applicant Current Address</label>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="exampleInputName1">Region</label>
+                              <select class="form-control"  id="region" onchange="regchange(this.value);"  name="region" placeholder="Region" value="">
+                              <option value="0">Please Select Region</option>
+                              <option >Addis Ababa</option>
+                              <option >Amhara </option>
+                              <option >Oromia </option>
+                              <option >Benshangul Gumz </option>
+                              <option >Afar </option>
+                              <option >Gambela </option>
+                              <option >Sidama </option>  
+                              <option >SWPN </option>
+                              <option >Harar </option>
+                              <option >Dire Dawa </option>
+                              <option >Somali </option>
+                              
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="exampleInputName1">Zone/Woreda</label>
+                              <input type="text" class="form-control" oninput="this.className = ''" id="zoneworeda" onchange="zonewechange(this.value);"  name="zoneworeda"  placeholder="Zone/Woreda" value="">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="exampleInputName1">City/Kebele/House No.</label>
+                              <input type="text" class="form-control" oninput="this.className = ''" id="citykebelehno" onchange="cikebchange(this.value);"  name="citykebelehno" placeholder="City/Kebele/H.No" value="">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="">
+                          <div class="">
+                            <div class="form-group">
+                              <label for="exampleInputName1">Contact Phone One <code>(Please use '/' if you have more than one phone)</code></label>
+                          <input type="text" class="form-control" id="phoneone" name="phoneone" placeholder="Phone Number" onchange="phn1change(this.value);"  oninput="this.className = ''">
+                       </div>
+                          </div>
+                        
+                          
+                        </div>
+                      
+                     <div id="iswithspouse" style="display: block;">
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Add Emergency Info</label>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="exampleInputName1">Emergency Contact Name</label>
+                              <input type="text" class="form-control" id="emergencyname" name="emergencyname" placeholder="Emergency Contact Name" onchange="emrnamechange(this.value);"  oninput="this.className = ''">
+                     
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="exampleInputName1">Emergency Contact Phone</label>
+                              <input type="text" class="form-control" id="emergencyphone" name="emergencyphone" placeholder="Emergency Contact Phone" onchange="emrphonechange(this.value);"  oninput="this.className = ''">
+                     
+                            </div>
+                          </div>
+                         
+                        </div>
+                      </div>
+                     </div>
+                      
+                             </div>
+                           
+                    
+                     
+                      <div class="tab">Upload Applicant ID:
+                        <div class="form-group">
+                          <label>Upload ID</label>
+                          <input type="file" name="appid" id="appid" class="file-upload-default" multiple>
+                          <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+                            <span class="input-group-append">
+                              <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4 offset-sm-4">
+                            <div class="id-images"></div>
+                          </div>
+                        </div>
+                      </div>
+                     
+                      <div class="tab">Write Economic Situation (Previous Business History):
+                        <div class="md-form">
+                          <i class="fas fa-pencil-alt prefix"></i>
+                          <textarea id="recommedation" name="recommedation" onchange="recchange(this.value);"  class="md-textarea form-control" rows="10"></textarea>
+                         
+                        </div>
+           
+                      </div>
+                      <div style="overflow:auto;">
+                        <div style="float:right;">
+                          <button type="button" style="  background: linear-gradient(to right, #45b649, #45b649);" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                
+                          <button type="button" style="  background: linear-gradient(to right, #45b649, #45b649);" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                       
+                        </div>
+                      </div>
+                      <!-- Circles which indicates the steps of the form: -->
+                      <div style="text-align:center;margin-top:40px;">
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        
+                        <span class="step"></span>
+                        <span class="step"></span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+           
+<script>
+  //tab navigation
+  var currentTab = 0; // Current tab is set to be the first tab (0)
+  showTab(currentTab); // Display the current tab
+  
+  function showTab(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+      document.getElementById("prevBtn").style.display = "none";
+    } else {
+      document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+      document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+      document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    //... and run a function that will display the correct step indicator:
+    fixStepIndicator(n)
+  }
+  
+  function nextPrev(n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tab");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateForm()) return false;
+    // Hide the current tab:
+    x[currentTab].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTab = currentTab + n;
+    // if you have reached the end of the form...
+    if (currentTab >= x.length) {
+      // ... the form gets submitted:
+      document.getElementById("regForm").submit();
+      return false;
+    }
+    // Otherwise, display the correct tab:
+    showTab(currentTab);
+  }
+  
+  function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y,z,p, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    z = x[currentTab].getElementsByTagName("select");
+    var tag = true ;
+   
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+    
+      
+      // If a field is empty...
+      if (y[i].value == "") {
+        var cc = y[i].getAttribute('id');
+        // add an "invalid" class to the field:
+        if( cc == "passport"){
+        //  y[i].className += " valid";
+
+          valid = true;
+       console.log(valid);
+           return valid;
+        }
+         y[i].className += " invalid";
+         
+          valid = false;
+        
+      
+
+      }
+    }
+    for (i = 0; i < z.length; i++) {
+      // If a field is empty...
+      if (z[i].value == "0") {
+        // add an "invalid" class to the field:
+        z[i].className += " invalid";
+        // and set the current valid status to false
+        valid = false;
+      }
+    }
+   
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid ) {
+      document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid; // return the valid status
+  }
+  
+  function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+      x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+  }
+  </script>
+
+        
+          </div>
+
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+         <%- include('./partials/footer') %>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../../assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="../../../assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../../assets/js/off-canvas.js"></script>
+    <script src="../../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../../assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../../../assets/js/dashboard.js"></script>
+    <script src="../../../assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+    <script src="../../assets/js/file-upload.js"></script>
+    
+  
+ 
+  </body>
+</html>
