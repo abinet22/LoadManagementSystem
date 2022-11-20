@@ -40,7 +40,7 @@
                 <% if(cadreview.length >0) { %>
               
                   <% cadreview.forEach(function (row){ %>
-                    <% if(row.applicationid ===appid) {%>
+                    <% if(row.applicationid === appid) {%>
                     <div class="modal fade seminor-login-modal" data-backdrop="static" id="<%= appid %>">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -165,13 +165,16 @@
                               </td>
                               <td>
                                 <% if(tag ==="Active") {%>
-                                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#<%= row.appid %>">
+                                  <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#<%= row.appid %>">
                                     Show Review
-                                  </button>
-                               <%} else { %>
-                                <a href="/application/showsingleapplicantdocument/<%= row.appid %>" class="btn btn-sm btn-info">Show Document</a>
+                                  </button> -->
+                                  <a href="/application/showreview/<%= row.appid %>" class="btn btn-sm btn-info">Show Review</a>
                              
+                               <%} else { %>
+                               
                              <%   }%>
+                             <a href="/application/showsingleapplicantdocument/<%= row.appid %>" class="btn btn-sm btn-info">Show Document</a>
+                             
                                </td>
                               <td> 
                                 <%var crat = new Date(row.createdAt) %> 

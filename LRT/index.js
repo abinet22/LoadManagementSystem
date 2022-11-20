@@ -73,7 +73,7 @@ app.use('/data', require('./routes/data.js'));
 app.use('/user', require('./routes/user.js'));
 app.use('/setting', require('./routes/setting.js'));
 
-const PORT = process.env.PORT || 5004;
+const PORT = process.env.PORT || 5008;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

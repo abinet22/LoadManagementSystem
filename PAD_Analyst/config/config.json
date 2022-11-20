@@ -1,0 +1,29 @@
+{
+    "development": {
+      "username": "admin",
+      "password": "R1445o123/",
+      "database": "hajidb",
+      "host": "localhost",
+      "dialect": "mysql",
+      "pool": {
+        "max": 5,
+        "min": 0,
+        "acquire": 30000,
+        "idle": 10000
+      }
+  
+    },
+    "production": {
+      "username": "admin",
+      "password": "R1445o123/",
+      "database": "hajidb",
+      "host": "localhost",
+      "dialect": "mysql",
+      "pool": {
+        "max": 5,
+        "min": 0,
+        "acquire": 30000,
+        "idle": 10000
+      }
+    }
+  }

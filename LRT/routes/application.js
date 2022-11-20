@@ -26,7 +26,7 @@ router.get('/newapplication', ensureAuthenticated, async function(req, res) {
     "SELECT * FROM loanapplications INNER JOIN applicantprofiles on "+
     " loanapplications.applicant_id = applicantprofiles.applicant_id inner join loansectors on"+
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
-    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.application_status='New'"
+    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.application_status='Approve_And_Sent_To_LRT'"
   );
   res.render('allapplicationlist',{user:req.user,application:application,cadreview:'',tag:'New'})
 } );
@@ -38,7 +38,7 @@ router.get('/activeapplication', ensureAuthenticated, async function(req, res) {
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
     " loanapplications.subsector_id  = loansubsectors.subsectorid  "+
     
-     " where  loanapplications.application_status !='New'"
+     " where  loanapplications.application_status ='Approve_And_Sent_To_LRT'"
   );
   const cadreview = await CADReview.findAll({where:{reviewedby:req.user.userid}});
   res.render('allapplicationlist',{user:req.user,application:application,tag:"Active",cadreview:cadreview})
@@ -86,7 +86,7 @@ router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async 
     "SELECT * FROM loanapplications INNER JOIN applicantprofiles on "+
     " loanapplications.applicant_id = applicantprofiles.applicant_id inner join loansectors on"+
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
-    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.application_status='New'"
+    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.application_status='Approve_And_Sent_To_LRT'"
   );
   if(!reason || !loanstatus){
 

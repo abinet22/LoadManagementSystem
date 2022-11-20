@@ -15,15 +15,18 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "clicksend": "^5.0.37",
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
+    "messagebird": "^3.8.1",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "node-fetch": "2.0",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
@@ -31,6 +34,7 @@
     "sequelize-cli": "^6.4.1",
     "sql": "^0.78.0",
     "sqlite3": "^5.0.6",
+    "twilio": "^3.83.3",
     "uuid": "^8.3.2"
   }
 }

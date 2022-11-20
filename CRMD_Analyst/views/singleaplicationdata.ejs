@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+  </head>
+
+
+  
+  <body>
+    <div class="container-scroller">
+   
+      <!-- partial:partials/_navbar.html -->
+      <%- include('./partials/top') %>
+    
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <%- include('./partials/sidebar') %>
+    
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon  me-2" style="color: #45b649;">
+                  <i class="mdi mdi-home"></i>
+                </span> Dashboard/Show Loan Application Document
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <a href="/application/newapplication">
+                      <span></span>All New Applications <i class="mdi mdi mdi-book-plus
+                      icon-sm text-primary align-middle"></i>
+              
+                    </a>
+                     </li>
+                </ul>
+              </nav>
+            </div>
+            <%- include ('./partials/messages') %>
+            <div class="col-lg-12 grid-margin stretch-card">
+              <!-- Button trigger modal -->
+            
+              
+              <div class="container">
+              
+                <p class="card-description" style="text-transform: uppercase;">Update Loan Status Application Here! <code></code>
+                </p>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sem-login">
+                  Update
+                </button>
+                <a href="/application/showreview/<%= appid %>">
+                  <span></span>All All Reviews<i class="mdi mdi mdi-book-plus
+                  icon-sm text-primary align-middle"></i>
+          
+                </a>
+                <div class="modal fade seminor-login-modal" data-backdrop="static" id="sem-login">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                 <div class="modal-header">
+                  <h5 class="modal-title text-center">Update Status Form</h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                      <span><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                  </button>
+        
+                 </div>
+                      <!-- Modal body -->
+                      <div class="modal-body seminor-login-modal-body">
+                       
+              
+                  <form class="seminor-login-form" action="/application/updatestatus/<%= profile.applicant_id %>/<%= appid%>" method="post">
+                    <div class="form-group">
+                      <label class="" for="name">Select Loan Status</label>
+                   
+                      <select class="form-control" name="loanstatus">
+                        <option value="0">Please Select Staus</option>
+                        <option value="Rejected_By_CRMD_Analyst">Rejected By CRMD_Analyst</option>
+                        <option value="Approve_And_Sent_To_PAD">Approve And Sent To PAD</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="" for="">Reason/ Comment</label>
+                   
+                 <textarea name="reason" class="form-control" id="reason" cols="" rows="3">
+
+                 </textarea>
+                   </div>
+                    
+              
+                      <div class="btn-check-log">
+                          <button type="submit" class="btn btn-sm btn-block btn-info">Update</button>
+                      </div>
+              
+                    </form>
+                  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+              </div>
+              
+              
+            </div>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <%  ;%>
+                <% if(singleappdoc != ""){ %>
+                    <% var databank,datavat,datalatter,datalicense,datamerrage,dataland; 
+                    %>
+                    
+             
+             <%  databank = 	'data:image/png;base64,' + new Buffer(singleappdoc.databank, 'binary').toString('base64')
+                  %>
+                  <%  datavat = 	'data:image/png;base64,' + new Buffer(singleappdoc.datavat, 'binary').toString('base64')
+                  %>
+                  <%  datalatter = 	'data:image/png;base64,' + new Buffer(singleappdoc.datalatter, 'binary').toString('base64')
+                  %>
+                  <%  datalicense = 	'data:image/png;base64,' + new Buffer(singleappdoc.datalicense, 'binary').toString('base64')
+                  %>
+                  <%  datamerrage = 	'data:image/png;base64,' + new Buffer(singleappdoc.datamerrage, 'binary').toString('base64')
+                  %>
+                  <%  dataland = 	'data:image/png;base64,' + new Buffer(singleappdoc.dataland, 'binary').toString('base64')
+                  %>
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Application Document </h4>
+                    <p class="card-description"> Application Document <code></code>
+                        <p class="card-description" style="text-transform: uppercase;"> Applicant Name: &nbsp; <%=profile.applicant_f_name %> &nbsp; <%=profile.applicant_m_name %> &nbsp; <%=profile.applicant_l_name %><code></code>
+                               </p>
+                               <p class="card-description" style="text-transform: uppercase;"> Gender : &nbsp; <%=profile.gender %> <code></code>
+                               </p>
+                               <p class="card-description" style="text-transform: uppercase;"> <%=profile.age %><code></code>
+                               </p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Land Docs</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">VAT Docs</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Application Latter</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="id-tab" data-bs-toggle="tab" data-bs-target="#id" type="button" role="tab" aria-controls="id" aria-selected="false">Marriege Docs</button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="ids-tab" data-bs-toggle="tab" data-bs-target="#ids" type="button" role="tab" aria-controls="ids" aria-selected="false">License Docs</button>
+
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="ids-tab" data-bs-toggle="tab" data-bs-target="#idb" type="button" role="tab" aria-controls="idb" aria-selected="false">Bank Docs</button>
+                            
+                          </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                         
+                               
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card">
+                            <div class="card-body">
+                             <div class="thumbnail col-md-12" style=" border-width: 1px; border-color: #45b649;" >
+                        <img   class="img-responsive" src="<%= dataland %>" width="100%" />
+                             
+                            </div> 
+                            </div>
+                            </div>  
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                          
+                         
+                               <div class="card">
+                                    <div class="card-body">
+                                     <div class="thumbnail col-md-12" style=" border-width: 1px; border-color: #45b649;" >
+                                        <img   class="img-responsive" src="<%= datavat %>" width="100%" />
+                              
+                                    </div> 
+                                    </div>
+                                    </div>  
+
+                              
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                       <div class="card">
+                       <div class="card-body">
+                        <div class="thumbnail col-md-6 offset-md-3" style=" border-width: 1px; border-color: #45b649;" >
+                            <img  class="img-responsive"  src="<%= datalatter %>" style="width:354px;height:472px" />
+                        </div> 
+                       </div>
+                       </div>
+                       
+                             
+                        </div>
+                        <div class="tab-pane fade" id="id" role="tabpanel" aria-labelledby="id-tab">
+                        
+                          <div class="card">
+                            <div class="card-body">
+                             <div class="thumbnail col-md-12" style=" border-width: 1px; border-color: #45b649;" >
+                            
+                           
+                           <img  class="img-responsive"  src="<%= datamerrage %>"  width="100%"/>
+                            </div> 
+                            </div>
+                            </div>  
+                           
+                      
+                          
+                        </div>
+                        <div class="tab-pane fade" id="ids" role="tabpanel" aria-labelledby="id-tab">
+                        
+                            <div class="card">
+                              <div class="card-body">
+                               <div class="thumbnail col-md-12" style=" border-width: 1px; border-color: #45b649;" >
+                              
+                             
+                             <img  class="img-responsive"  src="<%= datalicense %>"  width="100%"/>
+                              </div> 
+                              </div>
+                              </div>  
+                             
+                        
+                            
+                          </div>
+                          <div class="tab-pane fade" id="idb" role="tabpanel" aria-labelledby="id-tab">
+                        
+                            <div class="card">
+                              <div class="card-body">
+                               <div class="thumbnail col-md-12" style=" border-width: 1px; border-color: #45b649;" >
+                              
+                             
+                             <img  class="img-responsive"  src="<%= databank %>"  width="100%"/>
+                              </div> 
+                              </div>
+                              </div>  
+                             
+                        
+                            
+                          </div>
+                   
+                    </div>
+                  </div>
+                </div>
+                <% }else{ %>
+                    <p class="card-description" style="text-transform: uppercase;"> <code>Can't Find Applicant </code>
+                    </p>
+               <% } %>
+              </div>
+
+
+
+        
+          </div>
+          <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+          </div>
+          <script>
+            // Get the modal passport
+            function passimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            </script>
+          <script>
+
+                             
+            function idimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            // Get the modal personal id
+           
+            </script>
+          <script>
+            // Get the modal 3x4 photo
+            function photoimagefun(ids,divs){
+              var modal = document.getElementById("myModal");
+            
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById(ids);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() { 
+              modal.style.display = "none";
+              var d1 = document.getElementById(divs);
+            d1.style.display = "none";
+            }
+            }
+            </script>
+              <script>
+                // Get the modal 3x4 photo
+                function mariageimagefun(ids,divs){
+                  var modal = document.getElementById("myModal");
+                
+                // Get the image and insert it inside the modal - use its "alt" text as a caption
+                var img = document.getElementById(ids);
+                var modalImg = document.getElementById("img01");
+                var captionText = document.getElementById("caption");
+                img.onclick = function(){
+                  modal.style.display = "block";
+                  modalImg.src = this.src;
+                  captionText.innerHTML = this.alt;
+                }
+                
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+                
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() { 
+                  modal.style.display = "none";
+                  var d1 = document.getElementById(divs);
+                d1.style.display = "none";
+                }
+                }
+                </script>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+                    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+                    <script src=" https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script>
+                      <!-- //workingbelow -->
+                      <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+                      <script>
+                 $(document).ready(function (){
+             var table = $('#listtable').DataTable({
+               
+                'columnDefs': [{
+                   'targets': 0,
+                   'searchable': false,
+                   'orderable': false,
+                   'className': 'dt-body-center',
+                  
+                }],
+                'order': [[1, 'asc']]
+             });
+          
+             // Handle click on "Select all" control
+             $('#example-select-all').on('click', function(){
+                // Get all rows with search applied
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                // Check/uncheck checkboxes for all rows in the table
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+             });
+          
+             // Handle click on checkbox to set state of "Select all" control
+             $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+                // If checkbox is not checked
+                if(!this.checked){
+                   var el = $('#example-select-all').get(0);
+                   // If "Select all" control is checked and has 'indeterminate' property
+                   if(el && el.checked && ('indeterminate' in el)){
+                      // Set visual state of "Select all" control
+                      // as 'indeterminate'
+                      el.indeterminate = true;
+                   }
+                }
+             });
+          
+             // Handle form submission event
+             $('#frm-example').on('submit', function(e){
+                var form = this;
+          
+                // Iterate over all checkboxes in the table
+                table.$('input[type="checkbox"]').each(function(){
+                   // If checkbox doesn't exist in DOM
+                   if(!$.contains(document, this)){
+                      // If checkbox is checked
+                      if(this.checked){
+                         // Create a hidden element
+                         $(form).append(
+                            $('<input>')
+                               .attr('type', 'hidden')
+                               .attr('name', this.name)
+                               .val(this.value)
+                         );
+                      }
+                   }
+                });
+             });
+          
+          });
+                      </script>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <%- include('./partials/footer') %>
+    
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="../../assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../../assets/js/dashboard.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

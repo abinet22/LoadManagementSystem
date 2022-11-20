@@ -21,6 +21,7 @@ db.loansubsector = require("./LoanSubSector.js")(sequelize, Sequelize);
 db.applicantprofiles = require("./ApplicantProfile.js")(sequelize, Sequelize);
 db.loanapplications = require("./LoanApplication.js")(sequelize, Sequelize);
 db.cadreviews = require("./CADReview.js")(sequelize, Sequelize);
+db.analystworks = require("./AnalystWork.js")(sequelize, Sequelize);
 
 
 module.exports = db;

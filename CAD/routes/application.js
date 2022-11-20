@@ -72,6 +72,22 @@ router.get('/showsingleapplicantdocument/(:appid)', ensureAuthenticated, async f
    })
  
 });
+router.get('/showreview/(:appid)', ensureAuthenticated, async function(req, res) {
+
+  const [reviews, allnewapplicationmeta] = await sequelize.query(
+    "SELECT * FROM cadreviews INNER JOIN systemusers on "+
+    " cadreviews.reviewedby = systemusers.userid where cadreviews.applicationid ='"+req.params.appid+"'"
+     );
+  LoanApplication.findOne({where:{appid:req.params.appid}}).then((applications)=>{
+  
+   ApplicantProfile.findOne({where:{applicant_id:applications.applicant_id}}).then((profile)=>{
+
+     res.render('allreviewsingleapplication',{reviews:reviews,user:req.user,singleappdoc:applications,profile:profile,appid:applications.appid})
+   })
+
+  })
+
+});
 router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async function(req, res) {
   const{loanstatus,reason} = req.body;
   const errors = [];
