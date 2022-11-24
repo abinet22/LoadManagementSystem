@@ -80,6 +80,7 @@
                             <tr >
                               <td> <%= i %> </td>
                               <td> <%= row.fullname %><br>
+                                <%= row.userroll %><br>
                               <a href="tel:<%= row.phonenumber %>">
                                
                                 <i class="fa fa-phone"></i>   <%= row.phonenumber %>
@@ -95,6 +96,7 @@
                             <td>
                               <a href="/application/showsingleapplicantdocument/<%= row.appid %>" class="btn btn-sm btn-info">Show Document</a>
                             <% if(tag ==="Notread"){%>
+                            
                               <a href="/data/updatereviewread/<%= row.reviewid %>" class="btn btn-sm btn-info">Mark As Read</a>
                              
                            <% }else{%>

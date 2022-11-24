@@ -14,11 +14,19 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 var api = require('../node_modules/clicksend/api.js');
 const fetch = require('node-fetch');
 
-const accountSid = 'AC83fd9a36e318c61f440ad2e655fdfe20'; // Your Account SID from www.twilio.com/console
-const authToken = '94c521c306b0b66cb48ffc85e05a7372'; // Your Auth Token from www.twilio.com/console
+//onst accountSid = 'AC83fd9a36e318c61f440ad2e655fdfe20'; // Your Account SID from www.twilio.com/console
+//const authToken = '94c521c306b0b66cb48ffc85e05a7372'; // Your Auth Token from www.twilio.com/console
+const { MailtrapClient } = require("mailtrap");
+ const accountSid = "AC859838e47a28b47340b62c9817dfb542";
+ const authToken = "5859bcfdc96fd3e4ee397c6dbb18d1bf";
 
 
-const client = new twilio(accountSid, authToken);
+// For this example to work, you need to set up a sending domain,
+// and obtain a token that is authorized to send from the domain
+//const TOKEN = "f9595f3bce9c03d4c553cb871407b2ae";
+const client = require('twilio')(accountSid, authToken);
+
+//const client = new twilio(accountSid, authToken);
 router.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
@@ -54,10 +62,7 @@ router.get('/logout', (req, res) => {
 router.post('/register', forwardAuthenticated,async function (req, res, next) {
 
   const {email,password,repassword,phonenumber,fullname} = req.body;
-  const accountSid = "AC83fd9a36e318c61f440ad2e655fdfe20";
-  const authToken = "94c521c306b0b66cb48ffc85e05a7372";
-  const client = require('twilio')(accountSid, authToken);
-  
+
  
   const errors = [];
   const v1options = {
@@ -86,7 +91,7 @@ router.post('/register', forwardAuthenticated,async function (req, res, next) {
     errors.push({ msg: 'Passwords do not match' });
   }
 
-  if (password.length < 6) {
+  if (password.length < 3) {
     errors.push({ msg: 'Password must be at least 6 characters' });
   }
   if (errors.length > 0) {
@@ -111,39 +116,53 @@ router.post('/register', forwardAuthenticated,async function (req, res, next) {
 
               User.create(userData)
                   .then(data => {
-                    let transporter = nodeMailer.createTransport({
-                      host: 'smtp.mailgun.org',
-                      //port: 465,
-                      secure: true,
-                      auth: {
-                          user: 'sandboxc47a5cb4681f40e7813ee12c23027a0d.mailgun.org',
-                          pass: '8df8aa6353b34774a42170f3cf5b9238-a3d67641-0d10035a'
-                      },
-                  tls:{
-                    rejectUnauthorized: false
-                  }
-                  }); 
-                  let mailOptions = {
-                      from: '"Rahul Kumar" <rahulkumarx@gmail.com>', // sender address
-                      to: 'abinet22@gmail.com', // list of receivers
-                  replyTo:'abinet22@gmail.com',
-                      subject: "ssfsf", // Subject line
-                      text: "abcd" // plain text body          
+//                     const SENDER_EMAIL = "info@techlinktechnologies.com";
+// const RECIPIENT_EMAIL = "abinet22@gmail.com";
+// const client = new MailtrapClient({ token: TOKEN });
+
+// const sender = { name: "Mailtrap Test", email: SENDER_EMAIL };
+
+// client
+//   .send({
+//     from: sender,
+//     to: [{ email: RECIPIENT_EMAIL }],
+//     subject: "Hello from Mailtrap!",
+//     text: "Welcome to Mailtrap Sending!",
+//   })
+//   .then(console.log, console.error);
+                  //   let transporter = nodeMailer.createTransport({
+                  //     host: 'smtp.mailgun.org',
+                  //     //port: 465,
+                  //     secure: true,
+                  //     auth: {
+                  //         user: 'sandboxc47a5cb4681f40e7813ee12c23027a0d.mailgun.org',
+                  //         pass: '8df8aa6353b34774a42170f3cf5b9238-a3d67641-0d10035a'
+                  //     },
+                  // tls:{
+                  //   rejectUnauthorized: false
+                  // }
+                  // }); 
+                  // let mailOptions = {
+                  //     from: '"Rahul Kumar" <rahulkumarx@gmail.com>', // sender address
+                  //     to: 'abinet22@gmail.com', // list of receivers
+                  // replyTo:'abinet22@gmail.com',
+                  //     subject: "ssfsf", // Subject line
+                  //     text: "abcd" // plain text body          
                   
-                  };
+                  // };
                 
-                  transporter.sendMail(mailOptions, (error, info) => {
-                      if (error) {
-                          return console.log(error);
-                      }
-                      console.log('Message %s sent: %s', info.messageId, info.response);
-                          res.render('index');
-                      });
+                  // transporter.sendMail(mailOptions, (error, info) => {
+                  //     if (error) {
+                  //         return console.log(error);
+                  //     }
+                  //     console.log('Message %s sent: %s', info.messageId, info.response);
+                  //         res.render('index');
+                  //     });
                    
     //                 var smsMessage = new api.SmsMessage();
 
     //                 smsMessage.from = "myNumber";
-    //                 smsMessage.to = '+251922407020';
+    //                 smsMessage.to = '+251911369415';
                   
     //                   smsMessage.body = "This Is Notification Message From ETProcurementFSS.You Can pay Subscription Payment Through This Account 002322432424";
                     
@@ -161,21 +180,21 @@ router.post('/register', forwardAuthenticated,async function (req, res, next) {
     //   );
     //   res.redirect('/login');
                
-    // }).catch(function(err){
-    //   console.error(err.body);
+    // }).catch(err=>{
+    //   console.log(err);
     // });     
-                      // client.messages
-                      //   .create({
-                      //     body: 'Hello from Node',
-                      //     to: '+251913863171', // Text this number
-                      //     from: '+13465365233', // From a valid Twilio number
-                      //   })
-                      //   .then(message => {
+                      client.messages
+                        .create({
+                          body: 'Hello from Node',
+                          to: '+251913863171', // Text this number
+                          from: '+13465365233', // From a valid Twilio number
+                        })
+                        .then(message => {
                           
-                      //     console.log(message)
-                      //     res.send(message)
-                      //   }
-                      //   );
+                          console.log(message)
+                          res.send(message)
+                        }
+                        );
                          
                       
                     

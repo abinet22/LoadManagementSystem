@@ -38,7 +38,7 @@ router.get('/activeapplication', ensureAuthenticated, async function(req, res) {
     "SELECT * FROM loanapplications INNER JOIN applicantprofiles on "+
     " loanapplications.applicant_id = applicantprofiles.applicant_id inner join loansectors on"+
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
-    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status !='New'"
+    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status !='New' and loanapplications.application_status !='Approved' "
   );
   const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
   res.render('allapplicationlist',{user:req.user,application:application,
@@ -51,16 +51,20 @@ router.get('/selectedapplication', ensureAuthenticated, async function(req, res)
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
     " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status='Approved'"
   );
-  res.render('allapplicationlist',{user:req.user,application:application})
+  const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
+
+  res.render('allapplicationlist',{user:req.user,application:application,cadreview:cadreview,tag:"Selected"})
 } );
 router.get('/rejectedapplication', ensureAuthenticated, async function(req, res) {
   const [application, allnewapplicationmeta] = await sequelize.query(
     "SELECT * FROM loanapplications INNER JOIN applicantprofiles on "+
     " loanapplications.applicant_id = applicantprofiles.applicant_id inner join loansectors on"+
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
-    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status='Rejected'"
+    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status='Rejected' "
   );
-  res.render('allapplicationlist',{user:req.user,application:application})
+  const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
+
+  res.render('allapplicationlist',{user:req.user,application:application,cadreview:cadreview,tag:"Rejected"})
 } );
 router.get('/showsingleapplicantdocument/(:appid)', ensureAuthenticated, async function(req, res) {
   const application= await LoanApplication.findOne({where:{appid:req.params.appid}})

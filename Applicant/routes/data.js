@@ -46,5 +46,19 @@ router.get('/readnotifications', ensureAuthenticated,async function (req, res) {
     " where isread='Yes' and cadreviews.applicantid = '"+req.user.userid+"'");
   res.render('allreviews',{user:req.user,cadreview:cadreview,tag:""})
 });
+router.get('/updatereviewread/(:reviewid)', ensureAuthenticated,async function (req, res) {
+  const [cadreview, allnewapplicationmeta] = await sequelize.query(
+    "SELECT * FROM cadreviews inner join systemusers on "+ 
+    " cadreviews.reviewedby = systemusers.userid inner join loanapplications on "+
+    " loanapplications.appid = cadreviews.applicationid "+
+    " where cadreviews.applicantid = '"+req.user.userid+"'");
 
+   CADReview.update({isread:"Yes"},{where:{reviewid:req.params.reviewid}}).then(review =>{
+
+    res.render('allreviews',{user:req.user,cadreview:cadreview,tag:"",success_msg:'Successfully Update Notification As Read '})
+   }).catch(err =>{
+    res.render('allreviews',{user:req.user,cadreview:cadreview,tag:"",error_msg:'Error While Update Notification'})
+   })
+
+});
 module.exports = router;
