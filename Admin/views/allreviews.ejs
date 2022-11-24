@@ -18,87 +18,7 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
   </head>
-  <style>
-     
-    /* The Modal (background) */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      padding-top: 100px; /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-    }
-    
-    /* Modal Content (image) */
-    .modal-content {
-      margin: auto;
-      display: block;
-      width: 100%;
-      max-width: 700px;
-    }
-    
-    /* Caption of Modal Image */
-    #caption {
-      margin: auto;
-      display: block;
-      width: 100%;
-      max-width: 700px;
-      text-align: center;
-      color: #ccc;
-      padding: 10px 0;
-      height: 150px;
-    }
-    
-    /* Add Animation */
-    .modal-content, #caption {  
-      -webkit-animation-name: zoom;
-      -webkit-animation-duration: 0.6s;
-      animation-name: zoom;
-      animation-duration: 0.6s;
-    }
-    
-    @-webkit-keyframes zoom {
-      from {-webkit-transform:scale(0)} 
-      to {-webkit-transform:scale(1)}
-    }
-    
-    @keyframes zoom {
-      from {transform:scale(0)} 
-      to {transform:scale(1)}
-    }
-    
-    /* The Close Button */
-    .close {
-      position: absolute;
-      top: 100px;
-      right: 35px;
-      color: #f1f1f1;
-      font-size: 40px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    
-    .close:hover,
-    .close:focus {
-      color: #bbb;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    
-    /* 100% Image Width on Smaller Screens */
-    @media only screen and (max-width: 700px){
-      .modal-content {
-        width: 100%;
-      }
-    }
-    </style>
-  
+
   <body>
     <div class="container-scroller">
    
@@ -117,7 +37,7 @@
               <h3 class="page-title">
                 <span class="page-title-icon  text-white me-2">
                   <i class="mdi mdi-home" style="color: #45b649;"></i>
-                </span> Dashboard/All System User List
+                </span> Dashboard/All Review List
               </h3>
               <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
@@ -135,52 +55,45 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">System User List</h4>
-                    <p class="card-description"> All System Users <code></code>
+                    <h4 class="card-title">Loan Review List</h4>
+                    <p class="card-description"> All Reviews <code></code>
                     </p>
                     <table class="table  table-responsive" id="listtable">
                       <thead>
                         <tr>
                           <th> # </th>
-                          <th> User Name </th>
-                          <th> Phone Number </th>
-                          <th> Email </th>
-                          <th> User Roll </th>
-                          <th> Action ToDo </th>
+                          <th> Reviewer Name </th>
+                          <th> Review Status/Comment </th>
+                         
+                          <th> Application By </th>
+                          <th> Review Date </th>
                         
                         </tr>
                       </thead>
                       <tbody>
                      
-                        <% if(systemuser.length >0) { %>
+                        <% if(cadreview.length >0) { %>
                           <% var i =0 ; %>
-                          <% systemuser.forEach(function (row){ %>
+                          <% cadreview.forEach(function (row){ %>
                            <% i ++ %>
                             <tr >
                               <td> <%= i %> </td>
-                              <td> <%= row.fullname %>
+                              <td> <%= row.fullname %><br>
+                              <a href="tel:<%= row.phonenumber %>">
+                               
+                                <i class="fa fa-phone"></i>   <%= row.phonenumber %>
+                              </a>
                               </td>
-                              <td> <%= row.phonenumber %>
+                              <td> Status: <%= row.reviewstatus %><br>
+                                Reason:  <%= row.reason %>
                               </td>
                               <td>
-                                <%= row.email %> </td>
-                                <td> <%= row.userroll %>
-                                </td>
-                              <td>
-                            <%    if(row.isactive =="Yes") {%>
-                              <form action="/diactivatesystemuser/<%= row.id %>" method="post">
-                                <button type="submit" class="btn btn-block btn-danger btn-sm">Diactivate System User</button>
-                                </form>
-                              
-                               <% }else {%>
-                                <form action="/activatesystemuser/<%= row.id %>" method="post">
-                                  <button type="submit" class="btn btn-block btn-success btn-sm">Activate System User</button>
-                                  </form>
-                                
-                               <%} %>
-                                 
-                              </td>
-                           
+                             </td>
+                                  <%= row.fullname %>
+                                <td>
+                                  <%= row.createdAt %> </td>
+                             
+                          
                             </tr>
                           <% }) } else { %>
 

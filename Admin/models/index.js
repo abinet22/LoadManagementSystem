@@ -18,6 +18,6 @@ db.users = require("../models/User.js")(sequelize, Sequelize);
 db.systemusers = require("../models/SystemUser.js")(sequelize, Sequelize);
 db.loansector = require("../models/LoanSector.js")(sequelize, Sequelize);
 db.loansubsector = require("../models/LoanSubSector.js")(sequelize, Sequelize);
-
+db.cadreviews = require("../models/CADReview.js")(sequelize, Sequelize);
 
 module.exports = db;

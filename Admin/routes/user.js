@@ -19,7 +19,7 @@ router.get('/addsystemuser', ensureAuthenticated, async function(req, res){
 res.render('addsystemuser',{user:req.user})
 });
 
-router.get('/systemuserlist', ensureAuthenticated, async function(req, res){
+router.get('/userlist', ensureAuthenticated, async function(req, res){
 
   const systemuser = await SystemUser.findAll({});
   res.render('allsystemuserlist',{user:req.user,systemuser:systemuser})

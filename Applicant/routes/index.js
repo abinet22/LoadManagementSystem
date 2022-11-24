@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const nodeMailer = require('nodemailer');
 const db = require('../models');
 const User = db.users;
 const SystemUser = db.systemusers;
@@ -77,10 +77,20 @@ router.post('/register', forwardAuthenticated,async function (req, res, next) {
   fullname:fullname,
  
   }
-
  
+  if (!fullname || !email || !password || !repassword) {
+    errors.push({ msg: 'Please enter all fields' });
+  }
+
+  if (password != repassword) {
+    errors.push({ msg: 'Passwords do not match' });
+  }
+
+  if (password.length < 6) {
+    errors.push({ msg: 'Password must be at least 6 characters' });
+  }
   if (errors.length > 0) {
-      res.render('login', {
+      res.render('register', {
           errors,
          userData
       });
@@ -101,25 +111,59 @@ router.post('/register', forwardAuthenticated,async function (req, res, next) {
 
               User.create(userData)
                   .then(data => {
-                   
-                    var smsMessage = new api.SmsMessage();
-
-                    smsMessage.from = "myNumber";
-                    smsMessage.to = '+251922407020';
+                    let transporter = nodeMailer.createTransport({
+                      host: 'smtp.mailgun.org',
+                      //port: 465,
+                      secure: true,
+                      auth: {
+                          user: 'sandboxc47a5cb4681f40e7813ee12c23027a0d.mailgun.org',
+                          pass: '8df8aa6353b34774a42170f3cf5b9238-a3d67641-0d10035a'
+                      },
+                  tls:{
+                    rejectUnauthorized: false
+                  }
+                  }); 
+                  let mailOptions = {
+                      from: '"Rahul Kumar" <rahulkumarx@gmail.com>', // sender address
+                      to: 'abinet22@gmail.com', // list of receivers
+                  replyTo:'abinet22@gmail.com',
+                      subject: "ssfsf", // Subject line
+                      text: "abcd" // plain text body          
                   
-                      smsMessage.body = "This Is Notification Message From ETProcurementFSS.You Can pay Subscription Payment Through This Account 002322432424";
+                  };
+                
+                  transporter.sendMail(mailOptions, (error, info) => {
+                      if (error) {
+                          return console.log(error);
+                      }
+                      console.log('Message %s sent: %s', info.messageId, info.response);
+                          res.render('index');
+                      });
+                   
+    //                 var smsMessage = new api.SmsMessage();
+
+    //                 smsMessage.from = "myNumber";
+    //                 smsMessage.to = '+251922407020';
+                  
+    //                   smsMessage.body = "This Is Notification Message From ETProcurementFSS.You Can pay Subscription Payment Through This Account 002322432424";
                     
-                    var smsApi = new api.SMSApi("info@techlinktechnologies.com", "949DC10D-C1F5-31FD-7CCD-003801BA9D2B");
+    //                 var smsApi = new api.SMSApi("info@techlinktechnologies.com", "949DC10D-C1F5-31FD-7CCD-003801BA9D2B");
     
-    var smsCollection = new api.SmsMessageCollection();
+    // var smsCollection = new api.SmsMessageCollection();
     
-    smsCollection.messages = [smsMessage];
+    // smsCollection.messages = [smsMessage];              
     
-    smsApi.smsSendPost(smsCollection).then(function(response) {
-      console.log(response.body);
-    }).catch(function(err){
-      console.error(err.body);
-    });     
+    // smsApi.smsSendPost(smsCollection).then(function(response) {
+    //   console.log(response.body);
+    //   req.flash(
+    //     'success_msg',
+    //     'You are now registered and can log in'
+    //   );
+    //   res.redirect('/login');
+               
+    // }).catch(function(err){
+    //   console.error(err.body);
+    // });     
                       // client.messages
                       //   .create({
                       //     body: 'Hello from Node',
