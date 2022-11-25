@@ -28,6 +28,7 @@ router.get('/newapplication', ensureAuthenticated, async function(req, res) {
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
     " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.application_status='New'"
   );
+  
   res.render('allapplicationlist',{user:req.user,application:application,cadreview:'',tag:'New'})
 } );
 
@@ -38,7 +39,7 @@ router.get('/activeapplication', ensureAuthenticated, async function(req, res) {
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
     " loanapplications.subsector_id  = loansubsectors.subsectorid  "+
     
-     " where  loanapplications.application_status !='New'"
+     " where  loanapplications.application_status ='Approve_And_Sent_To_CRMD'"
   );
   const cadreview = await CADReview.findAll({where:{reviewedby:req.user.userid}});
   res.render('allapplicationlist',{user:req.user,application:application,tag:"Active",cadreview:cadreview})

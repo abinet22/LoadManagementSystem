@@ -140,7 +140,19 @@
                             <tr >
                               <td> <%= i   %> </td>
                           
-                              <td style="text-transform: uppercase;"> <%= row.applicant_f_name %> &nbsp; <%= row.applicant_m_name %> &nbsp; <%= row.applicant_l_name %> </td>
+                              <td style="text-transform: uppercase;"> <%= row.applicant_f_name %> &nbsp; <%= row.applicant_m_name %> &nbsp; <%= row.applicant_l_name %>
+                                <%
+                                var date1 = new Date(row.createdAt);
+    var date2 = new Date();
+      
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+      
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+   %>
+Applied <%= Math.floor(Difference_In_Days) %> days ago.
+                              </td>
                               <td> Nationality: <%= row.nationality %> <br>
                             
                                 Date of Birth: <%= row.date_of_birth %> <br>
