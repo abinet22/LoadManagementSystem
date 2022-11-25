@@ -94,7 +94,7 @@ router.get('/showreview/(:appid)', ensureAuthenticated, async function(req, res)
 
 });
 router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async function(req, res) {
-  const{loanstatus,reason} = req.body;
+  const{loanstatus,reason,refno} = req.body;
   const errors = [];
   const v1options = {
     node: [0x01, 0x23],
@@ -119,7 +119,8 @@ router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async 
     applicantid:req.params.applicantid,
     reason:reason,
     reviewstatus:loanstatus,
-    isread:'No'
+    isread:'No',
+    refno:refno
     }
     CADReview.create(cadReviewData).then(()=>{
       LoanApplication.findOne({where:{appid:req.params.appid}}).then((applications)=>{

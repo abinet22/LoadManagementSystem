@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         reason: {
             type: DataTypes.STRING,
         },
-       
+        refno: {
+            type: DataTypes.STRING,
+        },
         reviewstatus: {
             type: DataTypes.STRING,
         },

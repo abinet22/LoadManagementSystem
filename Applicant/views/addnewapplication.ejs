@@ -175,9 +175,10 @@
                       <!-- One "tab" for each step in the form: -->
                       <div class="tab">Loan Sector Info:
                         <p>
+                         
                           <div class="form-group">
                             <label for="exampleSelectGender">Select Loan Sector </label>
-                            <select class="form-control" id="sectorid" name="sectorid"   onchange="loansectorchange(this.value);" >
+                            <select class="form-control" id="sectorid" name="sectorid"  onchange="myFunction()" >
                               <option value="0">Please Select Loan Sector</option>
                             <% if(loansector.length >0 ){ %>
                             <% loansector.forEach(function(row){ %>
@@ -187,6 +188,7 @@
                              
                             </select>
                           </div>
+                         
                           <!-- <div class="form-group">
                            <button id="searchsubsector" type="button" onclick="loansectorchange(this);">Search</button>
                           </div> -->
@@ -315,50 +317,7 @@
                   </div>
                 </div>
               </div>
-              <script type="text/javascript">
-                $(document).ready(function() {  
-              
-                 function loansectorchange(this){
-                   var val = document.getElementById("sectorid").value;
-                 '<%- JSON.stringify(sector) %>'= val;
-                 var test =  '<%- JSON.stringify(sector) %>'; 
-                 console.log(test)
-                }   });
-              </script>
-            <script>
-              
-              
-               document.getElementById('numthree').innerHTML ="4";
-              //image previews
-              $(document).ready(function() {
-               
-                let imagesPreview = function(input, placeToInsertImagePreview) {
-                  if (input.files) {
-                    let filesAmount = input.files.length;
-                    for (i = 0; i < filesAmount; i++) {
-                      let reader = new FileReader();
-                      reader.onload = function(event) {
-                        $($.parseHTML("<img>"))
-                          .attr("src", event.target.result)
-                          .appendTo(placeToInsertImagePreview);
-                      };
-                      reader.readAsDataURL(input.files[i]);
-                    }
-                  }
-                };
-                $("#appid").on("change", function() {
-                  imagesPreview(this, "div.id-images");
-
-                });
-                $("#passport").on("change", function() {
-                  imagesPreview(this, "div.passport-images");
-                });
-                $("#photo").on("change", function() {
-                  imagesPreview(this, "div.photo-images");
-                });
-               
-              });
-            </script>
+          
 <script>
   //tab navigation
   var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -442,88 +401,10 @@
 
         
           </div>
-
+         
           <script>
-                      //chage values of print with inputs
-            function agechange(val){
-            document.getElementById("agechange1").innerHTML = val;
-            }
-            function genderchange(val){
-            document.getElementById("genderchange1").innerHTML = val;
-            }
-            function passchange(val){
-            document.getElementById("passchange1").innerHTML = val;
-            }
-            function passexpirchange(val){
-            document.getElementById("passexpirchange1").innerHTML = val;
-            }
-            function passissuechange(val){
-            document.getElementById("passissuechange1").innerHTML = val;
-            }
-            function fnamechange(valfn){
-             
-            document.getElementById("fnamechange1").innerHTML = valfn;
-            }
-            function mnamechange(val){
-            document.getElementById("mnamechange1").innerHTML = val;
-            }
-            function lnamechange(val){
-              // document.getElementById('yesspouse').innerHTML ="YES";
-              // document.getElementById('yespass').innerHTML ="YES";
-              var fname = document.getElementById('firstname').value;
-              var mname = document.getElementById('middlename').value;
-            document.getElementById("lnamechange1").innerHTML = fname + "_" + mname + "_" +val;
-            }
-            function zonewechange(val){
-            document.getElementById("zonewechange1").innerHTML = val;
-            }
-            function cikebchange(val){
-            document.getElementById("cikebchange1").innerHTML = val;
-            }
-            function phn1change(val){
-              var phone2 = document.getElementById('phonetwo').value;
-            document.getElementById("phn1change1").innerHTML = val ;
-            }
-            function phn2change(val){
-            document.getElementById("phn2change1").innerHTML = val;
-            }
-            function emrnamechange(val){
-            document.getElementById("emrnamechange1").innerHTML = val;
-            }
-            function emrphonechange(val){
-            document.getElementById("emrphonechange1").innerHTML = val;
-            }
-            function recchange(val){
-            document.getElementById("recchange1").innerHTML = val;
-            }
-            
-            function regchange(val){
-            document.getElementById("regchange1").innerHTML = val;
-            }
-            function nationchange(val){
-            document.getElementById("nationchange1").innerHTML = val;
-            }
-            function dobchange(val){
-            document.getElementById("dobchange1").innerHTML = val;
-           var agedisplay =  document.getElementById("agedisplay");
-           var age =  document.getElementById("age");
-               var claculatedagee=   getAge(new Date(val));
-               agedisplay.value = claculatedagee;
-               age.value = claculatedagee;
-               document.getElementById("agechange1").innerHTML = claculatedagee;
-            }
-            function pobchange(val){
-            document.getElementById("pobchange1").innerHTML = val;
-            }
-            function proidchange(val){
-              document.getElementById("proids").innerHTML = val;
-            }
-             function getAge(date) { 
-        var diff = Date.now() - date.getTime();
-        var age = new Date(diff); 
-        return Math.abs(age.getUTCFullYear() - 1970);
-    }
-           
+                      
+                  
            </script>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
@@ -553,35 +434,6 @@
     <!-- End custom js for this page -->
     <script src="../../assets/js/file-upload.js"></script>
     
-    <script>
-  
-    function PrintPreview() {
-      var applicantname = document.getElementById('firstname').value;
-      var divContents = $("#tobebilled").html();
- printWindow = window.open("", "", "location=1,status=1,scrollbars=1,width=650,height=600");
- printWindow.document.write('<html><head>');
- printWindow.document.write('<style type="text/css">@media print{.no-print, .no-print *{display: none !important;}</style>');
- printWindow.document.write('<link rel="stylesheet" type="text/css" href="assets/css/printapplication.css">');
-  
- printWindow.document.write('</head><body>');
- printWindow.document.write('<div style="width:100%;text-align:right">');
-
-  //Print and cancel button
- printWindow.document.write('<input type="button" id="btnPrint" value="Print" class="no-print" style="width:100px" onclick="window.print()" />');
- printWindow.document.write('<input type="button" id="btnCancel" value="Cancel" class="no-print"  style="width:100px" onclick="window.close()" />');
-
- printWindow.document.write('</div>');
-
- //You can include any data this way.
- 
- printWindow.document.write(divContents);
- printWindow.document.write(document.getElementById('forPrintPreview').innerHTML);
- //here 'forPrintPreview' is the id of the 'div' in current page(aspx).
- printWindow.document.write('</body></html>');
- printWindow.document.close();
- printWindow.focus();
-}
-  </script>
  
   </body>
 </html>
