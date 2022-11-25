@@ -38,7 +38,7 @@ router.get('/activeapplication', ensureAuthenticated, async function(req, res) {
     "SELECT * FROM loanapplications INNER JOIN applicantprofiles on "+
     " loanapplications.applicant_id = applicantprofiles.applicant_id inner join loansectors on"+
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
-    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status !='New' and loanapplications.application_status !='Approved' "
+    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' "
   );
   const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
   res.render('allapplicationlist',{user:req.user,application:application,

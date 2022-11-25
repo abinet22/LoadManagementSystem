@@ -32,6 +32,7 @@
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
+    "sendmail": "^1.6.1",
     "sequelize": "^6.19.0",
     "sequelize-cli": "^6.4.1",
     "sql": "^0.78.0",

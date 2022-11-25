@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const nodeMailer = require('nodemailer');
 const db = require('../models');
+const fs= require('fs');
+const sendmail = require('sendmail');
 const User = db.users;
 const SystemUser = db.systemusers;
 const twilio = require('twilio');
@@ -183,23 +185,74 @@ router.post('/register', forwardAuthenticated,async function (req, res, next) {
     // }).catch(err=>{
     //   console.log(err);
     // });     
-                      client.messages
-                        .create({
-                          body: 'Hello from Node',
-                          to: '+251913863171', // Text this number
-                          from: '+13465365233', // From a valid Twilio number
-                        })
-                        .then(message => {
+                      // client.messages
+                      //   .create({
+                      //     body: 'Hello from Node',
+                      //     to: '+251913863171', // Text this number
+                      //     from: '+13465365233', // From a valid Twilio number
+                      //   })
+                      //   .then(message => {
                           
-                          console.log(message)
-                          res.send(message)
-                        }
-                        );
-                         
+                      //     console.log(message)
+                      //     res.send(message)
+                      //   }
+                    //   //   );
+                 
+                  //  sendmail({
+                  //     from: 'no-reply@techlinktechnologies.com',
+                  //     to: 'abinet22@gmail.com',
+                  //     subject: 'test sendmail',
+                  //     html: 'Mail of test sendmail ',
+                  //   }, function(err, reply) {
+                  //     console.log(err && err.stack);
+                  //     console.dir(reply);
+                  // });
+                  const transporter = nodeMailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 587,
+                    auth: {
+                      user: 'abinet22@gmail.com',
+                      pass: 'weihsrnqoubzzpcd',
+                    },
+                  });
+                  transporter.verify().then(console.log).catch(console.error);
+             
+                let mailOptions = {
+                  from: 'abinet22@gmail.com', // sender address
+                  to: 'amhatefera2@gmail.com', // list of receivers
+                  subject: 'Node Contact Request', // Subject line
+                  text: 'Hello world?', // plain text body
+                
+              };
+            
+              // // send mail with defined transport object
+              transporter.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                      return console.log(error);
+                  }
+                  console.log('Message sent: %s', info.messageId);   
+                  console.log('Preview URL: %s', nodeMailer.getTestMessageUrl(info));
+            
+                  res.render('login', {msg:'Email has been sent'});
+              });
+              
                       
-                    
-                   
-                   
+                      // const { MailtrapClient } = require("mailtrap");
+                      // // For this example to work, you need to set up a sending domain,
+                      // // and obtain a token that is authorized to send from the domain
+                      // const TOKEN = "b77e627d33e4ea2719acfc75044b8066";
+                      // const SENDER_EMAIL = "info@techlinktechnologies.com";
+                      // const RECIPIENT_EMAIL = "abinet22@gmail.com";
+                      // const client = new MailtrapClient({ token: TOKEN });
+                      // const sender = { name: "Mailtrap Test", email: SENDER_EMAIL };
+                      // client
+                      //   .send({
+                      //     from: sender,
+                      //     to: [{ email: RECIPIENT_EMAIL }],
+                      //     subject: "Hello from Mailtrap!",
+                      //     text: "Welcome to Mailtrap Sending!",
+                      //   })
+                      //   .then(console.log, console.error);
                     
                   }).catch(err => {
                    

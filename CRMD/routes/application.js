@@ -11,7 +11,7 @@ const LoanApplication  = db.loanapplications;
 const ApplicantProfile  = db.applicantprofiles;
 const CADReview  = db.cadreviews;
 const AnalystWork = db.analystworks;
-
+const nodeMailer = require('nodemailer');
 const sequelize = db.sequelize ;
 const { Op } = require("sequelize");
 const bcrypt = require('bcryptjs');
@@ -106,9 +106,47 @@ router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async 
   AnalystWork .create(analystword).then(analyst =>{
     LoanApplication.findOne({where:{appid:req.params.appid}}).then((applications)=>{
       LoanApplication.update({application_status:'Approve_And_Sent_To_CRMD_Analyst'},{where:{appid:req.params.appid}}).then(()=>{
-        res.render('allapplicationlist',{user:req.user,application:application,
-          cadreview:'',tag:'New',
-          success_msg:'Update Application Status And Job Assigned Successfully'})
+        const transporter = nodeMailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          auth: {
+            user: 'abinet22@gmail.com',
+            pass: 'weihsrnqoubzzpcd',
+          },
+        });
+       
+        transporter.verify().then(console.log).catch(console.error);
+        User.findOne({where:{userid:req.params.applicantid}}).then((user)=>{
+     if(user){
+   var useremail= user.email;
+    let mailOptions = {
+      from: 'abinet22@gmail.com', // sender address
+      to: useremail, // list of receivers
+      subject: 'update loan application accepted by crmd', // Subject line
+      text: 'your loan application is Approve_And_Sent_To_CRMD_Analyst'
+      , // plain text body
+    
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        return console.log(error);
+    }
+    console.log('Message sent: %s', info.messageId);   
+    console.log('Preview URL: %s', nodeMailer.getTestMessageUrl(info));
+
+    res.render('allapplicationlist',{user:req.user,application:application,
+      cadreview:'',tag:'New',
+      success_msg:'Update Application Status And Job Assigned Successfully'})
+});
+     }
+     else{
+      res.render('allapplicationlist',{user:req.user,application:application,
+        cadreview:'',tag:'New',
+        success_msg:'Update Application Status And Job Assigned Successfully'})
+  
+     }
+     })
+        
       })
     
      })
