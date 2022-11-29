@@ -61,7 +61,7 @@ router.get('/rejectedapplication', ensureAuthenticated, async function(req, res)
   );
   res.render('allapplicationlist',{user:req.user,application:application,cadreview:'',tag:'Rejected'})
 } );
-router.get('/showsingleapplicantdocument/(:appid)', ensureAuthenticated, async function(req, res) {
+router.get('/showsingleapplicantdocument/(:appid)/(:tag)', ensureAuthenticated, async function(req, res) {
   
    const systemusers = await SystemUser.findAll({where:{userroll:'CRMD_Analyst'}});
    const [reviews, allnewapplicationmeta] = await sequelize.query(
@@ -72,7 +72,7 @@ router.get('/showsingleapplicantdocument/(:appid)', ensureAuthenticated, async f
    
     ApplicantProfile.findOne({where:{applicant_id:applications.applicant_id}}).then((profile)=>{
 
-      res.render('singleaplicationdata',{reviews:reviews,systemusers:systemusers,user:req.user,singleappdoc:applications,profile:profile,appid:applications.appid})
+      res.render('singleaplicationdata',{tag:req.params.tag,reviews:reviews,systemusers:systemusers,user:req.user,singleappdoc:applications,profile:profile,appid:applications.appid})
     })
 
    })
@@ -129,10 +129,13 @@ router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async 
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-        return console.log(error);
+      res.render('allapplicationlist',{user:req.user,application:application,
+        cadreview:'',tag:'New',
+        success_msg:'Update Application Status And Job Assigned Successfully But Email Not Sent'})
+  
     }
-    console.log('Message sent: %s', info.messageId);   
-    console.log('Preview URL: %s', nodeMailer.getTestMessageUrl(info));
+  //  console.log('Message sent: %s', info.messageId);   
+  //  console.log('Preview URL: %s', nodeMailer.getTestMessageUrl(info));
 
     res.render('allapplicationlist',{user:req.user,application:application,
       cadreview:'',tag:'New',

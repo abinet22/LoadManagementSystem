@@ -60,7 +60,8 @@ router.get('/rejectedapplication', ensureAuthenticated, async function(req, res)
     "SELECT * FROM loanapplications INNER JOIN applicantprofiles on "+
     " loanapplications.applicant_id = applicantprofiles.applicant_id inner join loansectors on"+
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
-    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status='Rejected' "
+    " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.applicant_id ='"+req.user.userid+"' and loanapplications.application_status='Rejected' "+
+    " or loanapplications.application_status='Rejected_By_CRMD_Analyst' or loanapplications.application_status='Rejected_By_PAD_Analyst'"
   );
   const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
 
