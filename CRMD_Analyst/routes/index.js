@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../models');
 const User = db.users;
 const SystemUser = db.systemusers;
-
+const LoanApplication  = db.loanapplications;
 const sequelize = db.sequelize ;
 const { Op } = require("sequelize");
 const bcrypt = require('bcryptjs');
