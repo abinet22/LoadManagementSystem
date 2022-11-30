@@ -15,7 +15,8 @@ const { v4: uuidv4 } = require('uuid');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 var api = require('../node_modules/clicksend/api.js');
 const fetch = require('node-fetch');
-
+const ApplicantProfile = db.applicantprofiles;
+const LoanApplication = db.loanapplications;
 //onst accountSid = 'AC83fd9a36e318c61f440ad2e655fdfe20'; // Your Account SID from www.twilio.com/console
 //const authToken = '94c521c306b0b66cb48ffc85e05a7372'; // Your Auth Token from www.twilio.com/console
 const { MailtrapClient } = require("mailtrap");
@@ -35,9 +36,23 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 router.get('/forgetpassword', forwardAuthenticated, (req, res) => res.render('forgetpassword',{user:req.user}));
 router.get('/dashboard', ensureAuthenticated, async function(req, res) 
 {
-res.render('dashboard',{
-  user:req.user,
+const loanapp = await LoanApplication.findAll({where:{applicant_id:req.user.userid}});
+ApplicantProfile.findOne({where:{applicant_id:req.user.userid}}).then((applicantpro)=>{
+  if(!applicantpro){
+    res.render('dashboard',{
+      user:req.user,
+      loanapp:loanapp,
+   error_msg:'Please Add And Complete Your LMS Profile First Before Apply For Loan'
+    })
+  }
+  else{
+    res.render('dashboard',{
+      user:req.user,
+      loanapp:loanapp,
+    })
+  }
 })
+
 });
 
 

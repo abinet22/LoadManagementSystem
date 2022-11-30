@@ -103,12 +103,13 @@ router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async 
     analystid:analyst
  
     }
-  AnalystWork .create(analystword).then(analyst =>{
+  AnalystWork.create(analystword).then(analyst =>{
     LoanApplication.findOne({where:{appid:req.params.appid}}).then((applications)=>{
       LoanApplication.update({application_status:'Approve_And_Sent_To_CRMD_Analyst'},{where:{appid:req.params.appid}}).then(()=>{
         const transporter = nodeMailer.createTransport({
           host: 'smtp.gmail.com',
           port: 587,
+          secure: false,
           auth: {
             user: 'abinet22@gmail.com',
             pass: 'weihsrnqoubzzpcd',
@@ -129,6 +130,7 @@ router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async 
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
+      console.log(error)
       res.render('allapplicationlist',{user:req.user,application:application,
         cadreview:'',tag:'New',
         success_msg:'Update Application Status And Job Assigned Successfully But Email Not Sent'})

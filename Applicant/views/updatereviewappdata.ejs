@@ -117,7 +117,7 @@
               <h3 class="page-title">
                 <span class="page-title-icon  me-2" style="color: #45b649;">
                   <i class="mdi mdi-home"></i>
-                </span> Dashboard/Show Loan Application Document
+                </span> Dashboard/Update Loan Application Document
               </h3>
               <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
@@ -131,9 +131,41 @@
                 </ul>
               </nav>
             </div>
+            <div class="row card col-md-8 offset-md-2">
+              <div class="card-body">
+                <form action="/application/updatereviewdoc/<%= appid %>" method="post" enctype="multipart/form-data">
+                 <div class="form-group">
+                   <label>Please Select Update Option</label>
+                  <select class="form-control" name="updateoption">
+                    <option value="0">Please Select Update Options</option>
+                    <option value="Land_Docs">Land Docs</option>
+                    <option value="VAT_Docs">VAT Docs</option>
+                    <option value="License_Docs">License Docs</option>
+                    <option value="Bank_Docs">Bank Docs</option>
+                    <option value="Application_Docs">Application Docs</option>
+                    <option value="Marriege_Docs">Marriege Docs</option>
+                  </select>
+                 </div>
+                 <div class="form-group">
+                  <label>Upload Docs</label>
+                  <input type="file" name="latter" id="latter" class="file-upload-default" multiple>
+                  <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+                    <span class="input-group-append">
+                      <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                    </span>
+                  </div>
+                 </div>
+                 <div class="form-group">
+                       <button class="btn btn-sm btn-block btn-info" type="submit">Update</button>
+                 </div>
+                </form>
+               
+              </div>
+              </div>
             <%- include ('./partials/messages') %>
-            <div class="col-lg-12 grid-margin stretch-card">
-                <%  ;%>
+            <div class="col-lg-12 grid-margin stretch-card my-5">
+              
                 <% if(singleappdoc != ""){ %>
                     <% var databank,datavat,datalatter,datalicense,datamerrage,dataland; 
                     %>
@@ -162,7 +194,7 @@
                           <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Land Docs</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">VAT Docs</button>
+                          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">VAT Docs </button>
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Application Latter</button>

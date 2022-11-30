@@ -46,6 +46,8 @@
                 </ul>
               </nav>
             </div>
+            <% var i = 0 ;%>
+            <%- include('./partials/messages') %>
             <div class="row">
               <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
@@ -53,8 +55,15 @@
                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">ACTIVE LOAN APPLICANTS  <i class="mdi mdi-marker-check mdi-24px float-right"></i>
                     </h4>
-                  
-                    1234
+                  <% if(loanapp.length >0){ %>
+                
+                  <% loanapp.forEach(function(row){ %>
+                 <% i++; %>
+               
+                 <% }) } else {  %>
+                  <%= "No Application :"%>
+                 <%}%>
+                   <%= i %>
                   </div>
                 </div>
               </div>

@@ -23,7 +23,8 @@ router.get('/allnewapplicationlist', ensureAuthenticated, async function(req, re
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
     " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.application_status ='New'"
   );
-  res.render('allapplicationlist',{user:req.user,application:application})
+  const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
+  res.render('allapplicationlist',{user:req.user,application:application,cadreview:cadreview})
 } );
 
 router.get('/activeapplication', ensureAuthenticated, async function(req, res) {
@@ -44,7 +45,8 @@ router.get('/selectedapplication', ensureAuthenticated, async function(req, res)
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
     " loanapplications.subsector_id  = loansubsectors.subsectorid where  loanapplications.application_status='Approved'"
   );
-  res.render('allapplicationlist',{user:req.user,application:application})
+  const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
+  res.render('allapplicationlist',{user:req.user,application:application,cadreview:cadreview})
 } );
 router.get('/rejectedapplication', ensureAuthenticated, async function(req, res) {
   const [application, allnewapplicationmeta] = await sequelize.query(
@@ -53,7 +55,8 @@ router.get('/rejectedapplication', ensureAuthenticated, async function(req, res)
     " loansectors.sectorid  = loanapplications.sector_id inner join loansubsectors on"+
     " loanapplications.subsector_id  = loansubsectors.subsectorid where loanapplications.application_status='Rejected'"
   );
-  res.render('allapplicationlist',{user:req.user,application:application})
+  const cadreview = await CADReview.findAll({where:{applicantid:req.user.userid}});
+  res.render('allapplicationlist',{user:req.user,application:application,cadreview:cadreview})
 } );
 
 module.exports = router;

@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../models');
 const User = db.users;
 const SystemUser = db.systemusers;
-
+const LoanApplication  = db.loanapplications;
 const sequelize = db.sequelize ;
 const { Op } = require("sequelize");
 const bcrypt = require('bcryptjs');
@@ -18,15 +18,46 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 router.get('/forgetpassword', forwardAuthenticated, (req, res) => res.render('forgetpassword',{user:req.user}));
 router.get('/dashboard', ensureAuthenticated, async function(req, res) 
 {
-res.render('dashboard',{
-  user:req.user,
-})
+
+  const appnew = await LoanApplication.count({where:{application_status:"New"}});
+  const apponanalyst = await LoanApplication.count({where:{application_status:"Approve_And_Sent_To_CRMD_Analyst"}});
+  
+    LoanApplication.findAll({where:{application_status:"Approve_And_Sent_To_CRMD_Analyst"}}).then((loanapp)=>{
+  
+    if(loanapp){
+      let errors =[];
+      var i =0;
+      loanapp.forEach(function(row){
+        var date1 = new Date(row.updatedAt);
+        var date2 = new Date() ;
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        
+        // To calculate the no. of days between two dates
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        console.log( Math.floor(Difference_In_Days))
+        
+    if(Difference_In_Days > 5){
+    i++;
+  
+      }
+      })
+      if(i>0)
+      {
+        errors.push({msg:"There Are " + i + " Loan Application On CRMD Analyst Waiting To Update More Than 5 Days"})
+        
+      }
+      console.log(errors);
+      res.render('dashboard',{
+        user:req.user,appnew:appnew,apponanalyst:apponanalyst,errors,
+        success_msg:"There Are "+apponanalyst+" Loan Applications Active On CRMD Analyst"
+      })
+      
+    }
+  
+  });
+  
+
 });
-
-
-
-
-
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {

@@ -17,6 +17,7 @@ const passport = require('passport');
 const { v4: uuidv4 } = require('uuid');
 const upload = require('../middleware/upload.js');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const ApplicantProfile = db.applicantprofiles;
 
 router.get('/addapplication', ensureAuthenticated, async function(req, res) {
   const loansector = await LoanSector.findAll({});
@@ -71,15 +72,21 @@ router.get('/showsingleapplicantdocument/(:appid)', ensureAuthenticated, async f
   const application= await LoanApplication.findOne({where:{appid:req.params.appid}})
   res.render('singleaplicationdata',{user:req.user,singleappdoc:application})
 });
+router.get('/updatereviewappdocdata/(:appid)', ensureAuthenticated, async function(req, res) {
+  const cadreview = await CADReview.findAll({where:{applicationid:req.params.appid}});
 
+  const application= await LoanApplication.findOne({where:{appid:req.params.appid}})
+  res.render('updatereviewappdata',{user:req.user,singleappdoc:application,cadreview:cadreview,appid:req.params.appid})
+});
 router.post("/addnewapplication",ensureAuthenticated, upload.fields([{ name: 'license', maxCount: 1 },{ name: 'land', maxCount: 1 },{ name: 'vat', maxCount: 1 },, { name: 'bank', maxCount: 1 }, { name: 'merried', maxCount: 1 }, { name: 'latter', maxCount: 1 }]), async function (req, res){
   const loansector = await LoanSector.findAll({});
   const loansubsector = await LoanSubSector.findAll({});
     const{sectorid,subsectorid} = req.body;
     try{
-    User.findOne({where:{userid:req.user.userid}}).then(applicant =>{
+    ApplicantProfile.findOne({where:{applicant_id:req.user.userid}}).then(applicant =>{
       if(applicant)
       {
+       
         const v1options = {
           node: [0x01, 0x23],
           clockseq: 0x1234,
@@ -158,13 +165,14 @@ router.post("/addnewapplication",ensureAuthenticated, upload.fields([{ name: 'li
           });
         
        });
+
       }
       else{
         res.render('addnewapplication',{
           user:req.user,
           loansector:loansector,
           loansubsector:loansubsector,
-          error_msg:'Applicant With This Id Not Found!'
+          error_msg:'Applicant With This Id Not Found! Please Add Your Profile First'
           });
       }
      }).catch(error =>{

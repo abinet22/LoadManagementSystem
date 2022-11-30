@@ -47,25 +47,26 @@
               </nav>
             </div>
             <div class="row">
-              <div class="col-md-4 stretch-card grid-margin">
+              <%- include('./partials/messages') %>
+              <div class="col-md-6 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
                   <div class="card-body">
                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">ACTIVE LOAN APPLICANTS  <i class="mdi mdi-marker-check mdi-24px float-right"></i>
+                    <h4 class="font-weight-normal mb-3">NEW APPLICATIONS  <i class="mdi mdi-marker-check mdi-24px float-right"></i>
                     </h4>
-                    <h5 class="mb-5">  </h5>
-                    1234
+                    <h5 class="mb-5"> </h5>
+                    <%= appnew %>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
+              <div class="col-md-6 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white">
                   <div class="card-body">
                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">ACTIVE LOAN APPLICATIONS  <i class="mdi mdi-marker-check mdi-24px float-right"></i>
+                    <h4 class="font-weight-normal mb-3">ACTIVE  APPLICATIONS  <i class="mdi mdi-marker-check mdi-24px float-right"></i>
                     </h4>
-                    <h5 class="mb-5">  </h5>
-                    1234
+                    <h5 class="mb-5"> </h5>
+                    <%= apponanalyst %>
                   </div>
                 </div>
               </div>

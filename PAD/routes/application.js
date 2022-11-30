@@ -111,6 +111,7 @@ router.post('/updatestatus/(:applicantid)/(:appid)', ensureAuthenticated, async 
           const transporter = nodeMailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,
+            secure: false,
             auth: {
               user: 'abinet22@gmail.com',
               pass: 'weihsrnqoubzzpcd',
